@@ -16,8 +16,9 @@ def controller():
     app.logger.info(type(data))
     servo_name = data['name']
     value = int(data['value'])
-    app.logger.info(servo_name, value)
-    robot_arm.move(servo_name, value)
+    app.logger.info(servo_name)
+    app.logger.info(value[0])
+    robot_arm.move(servo_name, value[0])
     return render_template("index.html")
 
 
