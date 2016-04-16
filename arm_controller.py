@@ -4,15 +4,13 @@ from unittest import mock
 
 
 class RobotArm(object):
-    def __init__(self, app):
+    def __init__(self):
         handle = self.setup()
-        app.logger.info("setting up")
         self.fd = handle.wiringPiI2CSetup(0x40)
         self.write = handle.wiringPiI2CWriteReg8
         self.write(self.fd, 0x00, 0x00)
         self.write(self.fd, 0x06, 0x00)
         self.write(self.fd, 0x07, 0x00)
-        self.app = app
 
     @staticmethod
     def setup():
@@ -24,15 +22,13 @@ class RobotArm(object):
         mask_h = 3840
         low_bits = value & mask_l
         high_bits = (value & mask_h) >> 8
-        self.app.logger.info([high_bits, low_bits])
 
         self.write(self.fd, 0x08, low_bits)
         self.write(self.fd, 0x09, high_bits)
-        self.app.logger.info("written")
 
 
 if __name__ == '__main__':
-    robot_arm = RobotArm(mock)
+    robot_arm = RobotArm()
 
     # robot_arm.move(fd, 0x06, 0x0)
     # robot_arm.move(fd, 0x07, 0x0)
