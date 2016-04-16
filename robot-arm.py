@@ -2,7 +2,7 @@ from arm_controller import RobotArm
 from flask import Flask, render_template, request, json
 
 app = Flask(__name__)
-robot_arm = RobotArm()
+robot_arm = RobotArm(app)
 
 @app.route('/')
 def hello_world():
@@ -13,7 +13,6 @@ def hello_world():
 def controller():
     app.logger.info(request.json)
     data = request.json
-    app.logger.info(type(data))
     servo_name = data['name']
     value = int(data['value'])
     app.logger.info(servo_name)
