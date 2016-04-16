@@ -18,8 +18,8 @@ class RobotArm(object):
     def move(self, servo, value):
         mask_l = 255
         mask_h = 4095-255
-        low_bits = value ^ mask_l
-        high_bits = value ^ mask_h
+        low_bits = value & mask_l
+        high_bits = value & mask_h
         self.app.logger.info([high_bits, low_bits])
 
         self.write(self.fd, 0x06, low_bits)
