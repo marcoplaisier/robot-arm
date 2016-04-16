@@ -8,6 +8,7 @@ class RobotArm(object):
         app.logger.info("setting up")
         self.fd = handle.wiringPiI2CSetup(0x40)
         self.write = handle.wiringPiI2CWriteReg8
+        self.write(self.fd, 0x00, 0x00)
         self.app = app
 
     @staticmethod
