@@ -12,7 +12,7 @@ def hello_world():
 @app.route('/controller', methods=["POST"])
 def controller():
     app.logger.info(request.json)
-    data = json.loads(request.json)
+    data = request.json
     app.logger.info(type(data))
     servo_name = data['name']
     value = data['value']
