@@ -12,8 +12,8 @@ class RobotArm():
         return cdll.LoadLibrary(lib_name)
 
     def move(self, servo, value):
-        mask_l = bin(255)
-        mask_h = bin(4095-255)
+        mask_l = 255
+        mask_h = 4095-255
         low_bits = value ^ mask_l
         high_bits = value ^ mask_h
 
