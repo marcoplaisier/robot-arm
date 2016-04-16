@@ -5,7 +5,7 @@ import logging
 class RobotArm(object):
     def __init__(self, app):
         handle = self.setup()
-        self.app.logger.info("setting up")
+        app.logger.info("setting up")
         self.fd = handle.wiringPiI2CSetup(0x40)
         self.write = handle.wiringPiI2CWriteReg8
         self.app = app
