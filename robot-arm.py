@@ -13,9 +13,10 @@ def hello_world():
 def controller():
     print(request.json)
     [servo_name, value] = json.dumps(request.json)
+    print(servo_name, value)
     robot_arm.move(servo_name, value)
     return render_template("index.html")
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
