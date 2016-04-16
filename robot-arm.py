@@ -11,9 +11,9 @@ def hello_world():
 
 @app.route('/controller', methods=["POST"])
 def controller():
-    print(request.json)
+    app.logger.info(request.json)
     [servo_name, value] = json.dumps(request.json)
-    print(servo_name, value)
+    app.logger.info(servo_name, value)
     robot_arm.move(servo_name, value)
     return render_template("index.html")
 
