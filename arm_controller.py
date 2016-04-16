@@ -20,7 +20,7 @@ class RobotArm(object):
         mask_h = 4095-255
         low_bits = value ^ mask_l
         high_bits = value ^ mask_h
-        self.app.logger.info(high_bits, low_bits, bin(high_bits + low_bits))
+        self.app.logger.info([high_bits, low_bits])
 
         self.write(self.fd, 0x06, low_bits)
         self.write(self.fd, 0x07, high_bits)
