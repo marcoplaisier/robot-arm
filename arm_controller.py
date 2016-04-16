@@ -1,5 +1,6 @@
 from ctypes import cdll, util
 import logging
+from unittest import mock
 
 
 class RobotArm(object):
@@ -9,6 +10,8 @@ class RobotArm(object):
         self.fd = handle.wiringPiI2CSetup(0x40)
         self.write = handle.wiringPiI2CWriteReg8
         self.write(self.fd, 0x00, 0x00)
+        self.write(self.fd, 0x06, 0x00)
+        self.write(self.fd, 0x07, 0x00)
         self.app = app
 
     @staticmethod
@@ -23,28 +26,28 @@ class RobotArm(object):
         high_bits = (value & mask_h) >> 8
         self.app.logger.info([high_bits, low_bits])
 
-        self.write(self.fd, 0x06, low_bits)
-        self.write(self.fd, 0x07, high_bits)
+        self.write(self.fd, 0x08, low_bits)
+        self.write(self.fd, 0x09, high_bits)
         self.app.logger.info("written")
 
-# fd = setup()
-#
-# write(fd, 0x00, 0x00)
-# write(fd, 0xFE, 0x40)
-# write(fd, 0x06, 0x0)
-# write(fd, 0x07, 0x0)
-# write(fd, 0x08, 0x0)
-# write(fd, 0x0E, 0x0)
-# write(fd, 0x0F, 0x0)
-# while True:
-#     for i in range(2, 8):
-#         write(fd, 0x09, i)
-#         for j in range(0, 256):
-#             write(fd, 0x08, j)
-#             write(fd, 0x11, i)
-#             write(fd, 0x10, j)
-#             sleep(0.05)
-#     for i in range(9, 2, -1):
-#         write(fd, 0x09, i)
-#         write(fd, 0x11, i)
-#         sleep(0.2)
+
+if __name__ == '__main__':
+    robot_arm = RobotArm(mock)
+
+    # robot_arm.move(fd, 0x06, 0x0)
+    # robot_arm.move(fd, 0x07, 0x0)
+    # robot_arm.move(fd, 0x08, 0x0)
+    # robot_arm.move(fd, 0x0E, 0x0)
+    # robot_arm.move(fd, 0x0F, 0x0)
+    # while True:
+    #     for i in range(2, 8):
+    #         robot_arm.move(fd, 0x09, i)
+    #         for j in range(0, 256):
+    #             robot_arm.move(fd, 0x08, j)
+    #             robot_arm.move(fd, 0x11, i)
+    #             robot_arm.move(fd, 0x10, j)
+    #             sleep(0.05)
+    #     for i in range(9, 2, -1):
+    #         robot_arm.move(fd, 0x09, i)
+    #         robot_arm.move(fd, 0x11, i)
+    #         sleep(0.2)
