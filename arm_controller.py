@@ -1,13 +1,16 @@
 from ctypes import cdll, util
-from time import sleep
+import logging
 
-class RobotArm():
+
+class RobotArm(object):
     def __init__(self):
         handle = self.setup()
+        logging.info("setting up")
         self.fd = handle.wiringPiI2CSetup(0x40)
         self.write = handle.wiringPiI2CWriteReg8
 
-    def setup(self):
+    @staticmethod
+    def setup():
         lib_name = util.find_library("wiringPi")
         return cdll.LoadLibrary(lib_name)
 
@@ -16,9 +19,11 @@ class RobotArm():
         mask_h = 4095-255
         low_bits = value ^ mask_l
         high_bits = value ^ mask_h
+        logging.info("bits", high_bits, low_bits)
 
         self.write(self.fd, 0x06, low_bits)
         self.write(self.fd, 0x07, high_bits)
+        logging.info("written")
 
 # fd = setup()
 #
