@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>Robot Arm</title>
+    <script>
+        var test = function (name, value) {
+            console.log(name, value);
+            var data = {
+                "name": name,
+                "value": value
+            };
+            var request = new XMLHttpRequest();
+            request.open("POST", url="http://127.0.0.1:5000/controller", async=true);
+            request.setRequestHeader("Content-type", "application/json")
+            request.send(JSON.stringify(data))
+            return
+        };
+    </script>
+</head>
+<body>
+<form id="controls" method="post">
+    <label for="rotate">Rotate</label>
+    <input type="range" min="428" max="2135" id="rotate" oninput="test(id, value)" onchange="test(id, value)">
+    <label for="arm_up_down">Arm up/down</label>
+    <input type="range" min="428" max="2135" id="arm_up_down" oninput="test(id, value)" onchange="test(id, value)">
+    <label for="arm_fw_bw">Arm forward/backward</label>
+    <input type="range" min="428" max="2135" id="arm_fw_bw" oninput="test(id, value)" onchange="test(id, value)">
+    <label for="claw_open_close">Claw open/close</label>
+    <input type="range" min="428" max="2135" id="claw_open_close" oninput="test(id, value)" onchange="test(id, value)">
+</form>
+</body>
+</html>
