@@ -9,7 +9,7 @@
                 "value": value
             };
             var request = new XMLHttpRequest();
-            request.open("POST", url="http://127.0.0.1:5000/controller", async=true);
+            request.open("POST", url="/controller", async=true);
             request.setRequestHeader("Content-type", "application/json")
             request.send(JSON.stringify(data))
             return
